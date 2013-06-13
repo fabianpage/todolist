@@ -40,6 +40,7 @@ import TodoCommands._
 import TodoDataProtocol._
 
 import ExecutionContext.Implicits.global
+import org.eligosource.eventsourced.journal.leveldb.LeveldbJournalProps
 
 object TodoCommands {
 
@@ -177,7 +178,7 @@ trait DemoPath {
 
 }
 
-class HttpService(val todoProcessor: ActorRef) extends Actor with HttpService with DemoPath {
+class MyHttpService(val todoProcessor: ActorRef) extends Actor with HttpService with DemoPath {
 
   // the HttpService trait defines only one abstract member, which
   // connects the services environment to the enclosing actor or test
@@ -196,8 +197,7 @@ object Main extends App {
 
   implicit val system = ActorSystem("on-spray-can")
 
-  val journal: ActorRef = Journal(JournalioJournalProps(new File("target/example-3")))
-  //val journal: ActorRef = Journal(InmemJournalProps())
+  val journal: ActorRef = Journal(LeveldbJournalProps(new File("target/example-1")))
 
   val extension: EventsourcingExtension = EventsourcingExtension(system, journal)
 
@@ -205,7 +205,7 @@ object Main extends App {
     val id = 3
   }), Some("todo-processor"))
 
-  val service = system.actorOf(Props(new HttpService(todoProcessor)), "demo-service")
+  val service = system.actorOf(Props(new MyHttpService(todoProcessor)), "demo-service")
 
 
   def time[A](a: => A) = {

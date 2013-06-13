@@ -1,5 +1,5 @@
 
-name := "Todo Paf"
+name := "Todo"
 
 version := "0.1.0"
 
@@ -36,6 +36,7 @@ libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-testkit" % "2.2.0-RC1" % "test",
     "org.eligosource" %% "eventsourced-core" % "0.6-SNAPSHOT",
     "org.eligosource" %% "eventsourced-journal-journalio" % "0.6-SNAPSHOT",
+    "org.eligosource" %% "eventsourced-journal-leveldb" % "0.6-SNAPSHOT",
     "org.eligosource" %% "eventsourced-journal-inmem" % "0.6-SNAPSHOT",
     "org.specs2" %% "specs2" % "2.0-RC2" % "test",
     "com.codahale.metrics" % "metrics-core" % "3.0.0-RC1"
