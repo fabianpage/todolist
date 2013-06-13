@@ -1,0 +1,211 @@
+{
+    "apiVersion": "0.2",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8080/",
+    "resourcePath": "/todo",
+    "apis": [
+        {
+            "path": "/todo",
+            "description": "Todo Operations",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Creates a new TodoList",
+                    "responseClass": "Todo",
+                    "nickname": "createNewTodoList",
+                    "parameters": [
+                        {
+                            "description": "Name of new Todo List",
+                            "paramType": "body",
+                            "name": "name",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "CreateTodo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/todo/{id}",
+            "description": "Todo Operations",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Gets a Todo List",
+                    "responseClass": "Todo",
+                    "nickname": "getTodoList",
+                    "parameters": [
+                        {
+                            "description": "Id of the todo list",
+                            "paramType": "path",
+                            "name": "id",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delets a Todo List",
+                    "responseClass": "Todo",
+                    "nickname": "deleteTodoList",
+                    "parameters": [
+                        {
+                            "description": "Id of the todo list",
+                            "paramType": "path",
+                            "name": "id",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/todo/{id}/entry",
+            "description": "Todo Operations",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "adds an entry to a todo list",
+                    "responseClass": "Todo",
+                    "nickname": "addEntry",
+                    "parameters": [
+                        {
+                            "description": "Id of the todo list",
+                            "paramType": "path",
+                            "name": "id",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Name of the Entry",
+                            "paramType": "body",
+                            "name": "name",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "CreateEntry"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/todo/{todoId}/entry/{entryId}",
+            "description": "Todo Operations",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "get an entry",
+                    "responseClass": "Entry",
+                    "nickname": "getEntry",
+                    "parameters": [
+                        {
+                            "description": "Id of the todo list",
+                            "paramType": "path",
+                            "name": "todoId",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "description": "Id of the todo list entry",
+                            "paramType": "path",
+                            "name": "entryId",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "User": {
+            "id": "User",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "userStatus": {
+                    "allowableValues": {
+                        "valueType": "LIST",
+                        "values": ["1-registered", "2-active", "3-closed"],
+                        "valueType": "LIST"
+                    },
+                    "description": "User Status",
+                    "type": "int"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Todo": {
+            "id": "Todo",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "entries": {
+                    "type": "List",
+                    "items": {
+                        "$ref": "Entry"
+                    }
+                }
+            }
+        },
+        "Entry": {
+            "id": "Entry",
+            "properties": {
+                "id": {
+                    "type": "long"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "CreateTodo": {
+            "id": "CreateTodo",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "CreateEntry": {
+            "id": "CreateEntry",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        }
+    }
+}
